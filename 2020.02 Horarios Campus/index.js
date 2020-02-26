@@ -17,6 +17,7 @@ const LaunchRequestHandler = {
     }
 };
 
+
 const horarioIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -25,13 +26,14 @@ const horarioIntentHandler = {
     async handle(handlerInput) {
         
         const answerSlot = (handlerInput.requestEnvelope.request.intent.slots.lugares.resolutions.resolutionsPerAuthority[0].values[0].value.id);
-        // const place = handlerInput.attributesManager.nombrelugar;
         let speakOutput = '';
         
+        // Si el answerSlot existe, buscalo en la base de datos
         if(answerSlot){
             speakOutput = await API.findHorario(answerSlot);
         }
         
+        // Si estamos hablando de punto azul, añade esto a speakOutput
         if(answerSlot === "PuntoAzul"){
             speakOutput += ' Si te interesa abrir la skill de punto azul para dudas más específicas, dí: "Cierra la skill y vamos a punto azul"..., si no, solo realiza otra pregunta.';
         }
@@ -39,65 +41,8 @@ const horarioIntentHandler = {
             .speak(speakOutput)
             .reprompt('¿Te puedo ayudar con otra cosa?')
             .getResponse();
-         
         }
 };
-// const horarioIntentHandler = {
-//     canHandle(handlerInput) {
-//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-//             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'horario';
-//     },
-//     handle(handlerInput) {
-//         const nameSlot = Alexa.getSlotValue(handlerInput.requestEnvelope, 'lugares');
-//         const answerSlot = (handlerInput.requestEnvelope.request.intent.slots.lugares.resolutions.resolutionsPerAuthority[0].values[0].value.id);
-//         let speakOutput = '';
-
-//         if (answerSlot === 'TecStore'){
-//             speakOutput = 'Tec store tiene un horario de Lunes a Viernes de 8  a 1  y 2:30  5:30.  su telefono es 81 1599 8634 y la página para comprar el línea es store punto tec punto mx';
-//         }
-//         else if (answerSlot === 'Cafeteria') {
-//             speakOutput = 'Los horarios de cafeterias y restaurantes varian, por ejemplo, Centrales de 7:30 a 7 de la tarde. Jubileo de 7:00 a 5:30 y Starbucks de biblioteca de 8:30 a 10:00 de la noche';
-//         }
-//         else if (answerSlot === 'BiblioTec') {
-//             speakOutput = 'Biblio TEC, permanece abierta las 24 horas los 7 dias de la semana.';
-//         }
-//         else if (answerSlot === 'PuntoAzul') {
-//             speakOutput = 'Punto Azul abre de 8 de la mañana a 6 de la tarde de lunes a viernes.';
-//         }
-//         else if (answerSlot === 'Gym') {
-//             speakOutput = 'La sala de pesas está abierto de lunes a viernes de 6 de la mañana a 9 de la noche y los sábados abren de 8 de la mañana a 3 de la tarde. De 4 y media a 5 de la tarde se cierra por limpieza';
-//         }
-//         // else if (answerSlot === 'CIMA') {
-//         //     speakOutput = '';
-//         // }
-//         else if (answerSlot === 'Locatec') {
-//             speakOutput = 'Entre semana, Locatec abre a las 8 de la mañana y cierra a las 8 de la noche. Los sábados abren de 8 de la mañana a 1 de la tarde.';
-//         }
-//         else if (answerSlot === 'TimHortons') {
-//              speakOutput = 'El horario de Tim Hortons es de 6 de la mañana a 10 de la noche de lunes a viernes. El sábado abre de 9 de la mañana a 6 de la tarde y el domingo abre de 11 de la mañana a 9 de la noche.';
-//         }        
-//         else if (answerSlot === 'Oxxo') {
-//             speakOutput = 'El oxxo de Centrales abre las 24 horas, los 7 días de la semana. El oxxo de Aulas 4 está abierto de 7 de la mañana a 10 de la noche de lunes a viernes y los sábados de 7 de la mañana a 6 de la tarde';
-//         }        
-//         else if (answerSlot === 'Panem') {
-//             speakOutput = 'Panem abre a las 7:30 de la mañana y cierra a las 9:30 de la noche a excepción del sábado, que cierran a las 5:00 de la tarde. Los domingos no abren.';
-//         }
-//         else if (answerSlot === 'BBVA') {
-//             speakOutput = 'El banco BBVA abre de 8:30 de la mañana a 5 de la tarde. No abre en sábado y domingo.';
-//         }
-//         else if (answerSlot === 'Santander') {
-//             speakOutput = 'Santander se encuentra abierto de 9 de la mañana a 4 de la tarde. No abre en sábado y domingo.';
-//         }        
-//         // else if (answerSlot === 'Enfermeria') {
-//         //     speakOutput = '';
-//         // }
-
-//         return handlerInput.responseBuilder
-//             .speak(speakOutput)
-//             .reprompt('¿Te puedo ayudar con otra cosa?')
-//             .getResponse();
-//     }
-// };
 
 const aperturaIntentHandler = {
     canHandle(handlerInput) {
@@ -107,13 +52,14 @@ const aperturaIntentHandler = {
     async handle(handlerInput) {
         
         const answerSlot = (handlerInput.requestEnvelope.request.intent.slots.lugares.resolutions.resolutionsPerAuthority[0].values[0].value.id);
-        // const place = handlerInput.attributesManager.nombrelugar;
         let speakOutput = '';
         
+        // Si el answerSlot existe, buscalo en la base de datos
         if(answerSlot){
             speakOutput = await API.findApertura(answerSlot);
         }
  
+        // Si estamos hablando de punto azul, añade esto a speakOutput
         if(answerSlot === "PuntoAzul"){
             speakOutput += ' Si te interesa abrir la skill de punto azul para dudas más específicas, dí: "Cierra la skill y vamos a punto azul"..., si no, solo realiza otra pregunta.';
         }
@@ -123,62 +69,6 @@ const aperturaIntentHandler = {
             .getResponse();
     }
 };
-// const aperturaIntentHandler = {
-//     canHandle(handlerInput) {
-//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-//             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'apertura';
-//     },
-//     handle(handlerInput) {
-//         const nameSlot = Alexa.getSlotValue(handlerInput.requestEnvelope, 'lugares');
-//         const answerSlot = (handlerInput.requestEnvelope.request.intent.slots.lugares.resolutions.resolutionsPerAuthority[0].values[0].value.id);
-//         let speakOutput = '';
-        
-//         if (answerSlot === 'TecStore'){
-//             speakOutput = 'Tec store abre de Lunes a Viernes en dos horarios, el primero a las 8 de la mañana y por la tarde a las 2:30, en línea el servicio es las 24 horas en store punto tec punto mx';
-//         }
-//         else if (answerSlot === 'Cafeteria') {
-//             speakOutput = 'en Centrales te podemos dar servicio a partir de las 7:30 de la mañana. En Jubileo te recibimos desde las 7:00 de la mañana y Starbucks de biblioteca desde las 8:30';
-//         }
-//         else if (answerSlot === 'BiblioTec') {
-//             speakOutput = 'Biblio TEC, permanece abierta las 24 horas los 7 dias de la semana';
-//         }
-//         else if (answerSlot === 'PuntoAzul') {
-//             speakOutput = 'Punto Azul abre a las 8 de la mañana de lunes a viernes.';
-//         }
-//         else if (answerSlot === 'Gym') {
-//           speakOutput = 'La sala de pesas se abre a las 6 de la mañana de lunes a viernes y los sábados abren a las 8 de la mañana. De 4 y media a 5 de la tarde se cierra por limpieza.';
-//         }
-//         // else if (answerSlot === 'CIMA') {
-//         // speakOutput = 'Cima abre ';
-//         // }
-//         else if (answerSlot === 'Locatec') {
-//             speakOutput = 'Locatec abre a las 8 de la mañana de lunes a sábado.';
-//         }
-//         else if (answerSlot === 'TimHortons') {
-//             speakOutput = 'Entre semana, Tim Hortons abre a las 6 de la mañana. El sábado abre a las de 9 de la mañana y el domingo abre de 11 de la mañana.';
-//         }        
-//         else if (answerSlot === 'Oxxo') {
-//             speakOutput = 'El oxxo de Centrales abre las 24 horas, los 7 días de la semana. El oxxo de Aulas 4 está abre a las 7 de la mañana de lunes a sábado';
-//         }
-//         else if (answerSlot === 'Panem') {
-//             speakOutput = 'Panem abre a las 7:30 de la mañana de lunes a sábado. Los domingos no abren.';
-//         }
-//         else if (answerSlot === 'BBVA') {
-//             speakOutput = 'El banco BBVA abre a las 8:30 de la mañana. No abre en sábado y domingo.';
-//         }
-//         // else if (answerSlot === 'Enfermeria') {
-//         //   speakOutput = 'La enfermeria abre';
-//         // }
-//         else if (answerSlot === 'Santander') {
-//             speakOutput = 'Santander abre 9 de la mañana. No abre en sábado y domingo.';
-//         }
-        
-//         return handlerInput.responseBuilder
-//             .speak(speakOutput)
-//             .reprompt('¿Te puedo ayudar con otra cosa?')
-//             .getResponse();
-//     }
-// };
 
 const cierreIntentHandler = {
     canHandle(handlerInput) {
@@ -188,13 +78,14 @@ const cierreIntentHandler = {
     async handle(handlerInput) {
         
         const answerSlot = (handlerInput.requestEnvelope.request.intent.slots.lugares.resolutions.resolutionsPerAuthority[0].values[0].value.id);
-        // const place = handlerInput.attributesManager.nombrelugar;
         let speakOutput = '';
         
+        // Si el answerSlot existe, buscalo en la base de datos
         if(answerSlot){
             speakOutput = await API.findCierre(answerSlot);
         }
  
+        // Si estamos hablando de punto azul, añade esto a speakOutput
         if(answerSlot === "PuntoAzul"){
             speakOutput += ' Si te interesa abrir la skill de punto azul para dudas más específicas, dí: "Cierra la skill y vamos a punto azul"..., si no, solo realiza otra pregunta.';
         }
@@ -204,61 +95,6 @@ const cierreIntentHandler = {
             .getResponse();
     }
 };
-// const cierreIntentHandler = {
-//     canHandle(handlerInput) {
-//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-//             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'cierre';
-//     },
-//     handle(handlerInput) {
-//         const nameSlot = Alexa.getSlotValue(handlerInput.requestEnvelope, 'lugares');
-//         const answerSlot = (handlerInput.requestEnvelope.request.intent.slots.lugares.resolutions.resolutionsPerAuthority[0].values[0].value.id);
-//         let speakOutput = '';
-        
-//         if (answerSlot === 'TecStore'){
-//             speakOutput = 'En Tec store cerramos a la 1 de la tarde, regresamos a las 2:30 y nos vamos a las 5:30 de la tarde. En línea el servicio es las 24 horas en store punto tec punto mx';
-//         }
-//         else if (answerSlot === 'Cafeteria') {
-//             speakOutput = 'Centrales cierra a las 7 de la tarde. Jubileo a las 5:30 y Starbucks de biblioteca te atiende hasta las 10:00 de la noche';
-//         }
-//         else if (answerSlot === 'BiblioTec') {
-//             speakOutput = 'Biblio TEC, permanece abierta las 24 horas los 7 dias de la semana';
-//         }    
-//         else if (answerSlot === 'PuntoAzul') {
-//             speakOutput = 'Punto Azul cierra a las 6 de la tarde de lunes a viernes.';
-//         }
-//         else if (answerSlot === 'Gym') {
-//             speakOutput = 'La sala de pesas cierra a las 9 de la noche entre semana y los sábados cierran a las 3 de la tarde. De 4 y media a 5 de la tarde se cierra por limpieza ';
-//         }
-//         // else if (answerSlot === 'CIMA') {
-//         //     speakOutput = 'Cima cierra ';
-//         // }
-//         else if (answerSlot === 'Locatec') {
-//             speakOutput = 'Locatec cierra a las 8 de la noche de lunes a viernes. Los sábados cierran a l 1 de la tarde.';
-//         }
-//         else if (answerSlot === 'TimHortons') {
-//             speakOutput = 'Entre semana, Tim Hortons cierra a las 10 de la noche. El sábado cierra a las 6 de la tarde y el domingo cierra a las 9 de la noche.';
-//         }        
-//         else if (answerSlot === 'Oxxo') {
-//              speakOutput = 'El oxxo de Centrales abre las 24 horas, los 7 días de la semana. El oxxo de Aulas 4 cierra a las 10 de la noche de lunes a viernes. Los sábados cierran a las 6 de la tarde';
-//         }        
-//         else if (answerSlot === 'Panem') {
-//             speakOutput = 'Panem cierra a las 9:30 de la noche. Los sábados cierran a las 5:00 de la tarde y los domingos no abren.';
-//         }
-//         else if (answerSlot === 'BBVA') {
-//             speakOutput = 'El banco BBVA cierra a las 5 de la tarde. No abre en sábado y domingo.';
-//         }
-//         // else if (answerSlot === 'Enfermeria') {
-//         //     speakOutput = 'La enfermeria cierra';
-//         // }
-//         else if (answerSlot === 'Santander') {
-//             speakOutput = 'Santander cierra a las 4 de la tarde. No abre en sábado y domingo.';
-//         }
-//         return handlerInput.responseBuilder
-//             .speak(speakOutput)
-//             .reprompt('¿Te puedo ayudar con otra cosa?')
-//             .getResponse();
-//     }
-//};
 
 const dondePuedoIntentHandler = {
     canHandle(handlerInput) {
@@ -300,7 +136,7 @@ const dondePuedoIntentHandler = {
             speakOutput = 'La parada que tienen en común todas las rutas de circuito tec está en la parte trasera de Cetec, muy cerca de Rectoría.';
         }
         
-        
+
         if(answerSlot === "idPagar" || answerSlot === 'idTramites'){
             speakOutput += ' Si te interesa abrir la skill de punto azul para dudas más específicas, dí: "Cierra la skill y abre punto azul".';
         }
@@ -319,13 +155,14 @@ const dondeQuedaIntentHandler = {
     async handle(handlerInput) {
         
         const answerSlot = (handlerInput.requestEnvelope.request.intent.slots.lugares.resolutions.resolutionsPerAuthority[0].values[0].value.id);
-        // const place = handlerInput.attributesManager.nombrelugar;
         let speakOutput = '';
         
+        // Si el answerSlot existe, buscalo en la base de datos
         if(answerSlot){
             speakOutput = await API.findLugares(answerSlot);
         }
  
+        // Si estamos hablando de punto azul, añade esto a speakOutput
         if(answerSlot === "PuntoAzul"){
             speakOutput += ' Si te interesa abrir la skill de punto azul para dudas más específicas, dí: "Cierra la skill y vamos a punto azul"..., si no, solo realiza otra pregunta.';
         }
@@ -335,72 +172,11 @@ const dondeQuedaIntentHandler = {
             .getResponse();
     }
 };
-// const dondeQuedaIntentHandler = {
-//     canHandle(handlerInput) {
-//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-//             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'dondeQueda';
-//     },
-//     handle(handlerInput) {
-//         const nameSlot = Alexa.getSlotValue(handlerInput.requestEnvelope, 'lugares');
-//         const answerSlot = (handlerInput.requestEnvelope.request.intent.slots.lugares.resolutions.resolutionsPerAuthority[0].values[0].value.id);
-//         let speakOutput = '';
-//         if (answerSlot === 'PuntoAzul'){
-//             speakOutput = 'Punto Azul se encuentra en el sotano de Cetec, conocido también como el servilletero.';
-//         }
-//         else if (answerSlot === 'Gym'){
-//             speakOutput = 'El gimnasio se encuentra debajo de Centro de Congresos, a un lado de la cafeteria Jubileo.';
-//         }        
-//         else if (answerSlot === 'TecStore'){
-//             speakOutput = 'La Tec Store se encuentra en BiblioTec primer piso, conectada a Tim Hortons.';
-//         }
-//         else if (answerSlot === 'BiblioTec'){
-//             speakOutput = 'La BiblioTec se encuentra al centro del campus, a un lado del Jardín de Carreras.';
-//         }
-//         else if (answerSlot === 'Locatec'){
-//             speakOutput = 'Locatec se encuentra en el primer piso de aulas 1.'
-//         }
-//         // else if (answerSlot === 'CanchasEscamilla'){
-//         //     speakOutput = '.';
-//         // }
-//         else if (answerSlot === 'CIMA'){
-//              speakOutput = 'CIMA tiene distintas ubicaciones, una se encuentra debajo de Centrales, otra debajo de Aulas 4 y otra dentro de Arizona.';
-//         }
-//         else if (answerSlot === 'TimHortons') {
-//             speakOutput = 'Tim Hortons se encuentra en el primer piso de BiblioTec.';
-//         }        
-//         else if (answerSlot === 'Oxxo') {
-//             speakOutput = 'Un Oxxo queda junto a la cafeteria Centrales y otro a un costado de Aulas 4.';
-//         }        
-//         else if (answerSlot === 'Panem') {
-//             speakOutput = 'Panem se encuentra entre Aulas 1 y Aulas 2. Bastante cerca de Rectoría y de la cafeteria Centrales.';
-//         }
-//         else if (answerSlot === 'Enfermeria') {
-//             speakOutput = 'La enfermería se encuentra entre la cafeteria Centrales y Panem.';
-//         }
-//         else if (answerSlot === 'Santander') {
-//           speakOutput = 'Santander se encuentra entre aulas 1 y centro estudiantil. A un lado de B B V A.';
-//         }
-//         else if (answerSlot === 'BBVA') {
-//             speakOutput = 'BBVA se encuentra entre aulas 1 y centro estudiantil. A un lado de Santander';
-//         }
-//         else if (answerSlot === 'Circuito') {
-//             speakOutput = 'La parada que tienen en común todas las rutas de circuito tec está en la parte trasera de Cetec, muy cerca de Rectoría.';
-//         }
-        
-        
-//         return handlerInput.responseBuilder
-//             .speak(speakOutput)
-//             .reprompt('¿Te puedo ayudar con otra cosa?')
-//             .getResponse();
-//     }
-// };
 
 const AbrePuntoAzulIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'AbrePuntoAzul');
-            // && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.CancelIntent'
-            //     || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
     },
     handle(handlerInput) {
         const speakOutput = 'La skill está por cerrarse. Para invocar la skill de punto azul, menciona lo siguiente... "Alexa, abre punto azul".';
@@ -408,7 +184,6 @@ const AbrePuntoAzulIntentHandler = {
             .speak(speakOutput)
             .getResponse();
     }
-
 };
 
 const HelpIntentHandler = {
