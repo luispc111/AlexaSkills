@@ -1,0 +1,496 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "horarios campus",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "Adios",
+                        "Nos vemos"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "apertura",
+                    "slots": [
+                        {
+                            "name": "lugares",
+                            "type": "lugares"
+                        }
+                    ],
+                    "samples": [
+                        "el {lugares} abre a que hora",
+                        "desde que hora esta abierto {lugares}",
+                        "como a que hora abren {lugares}",
+                        "sabes a que hora abren en {lugares}",
+                        "desde que hora puedo ir a {lugares}",
+                        "hora de apertura {lugares}",
+                        "en que hora abre {lugares}",
+                        "cual es el la hora de apertura de {lugares}",
+                        "en que horario abre {lugares}",
+                        "a que hora abre {lugares}"
+                    ]
+                },
+                {
+                    "name": "cierre",
+                    "slots": [
+                        {
+                            "name": "lugares",
+                            "type": "lugares"
+                        }
+                    ],
+                    "samples": [
+                        "el {lugares} cierra a que hora",
+                        "desde que hora esta {lugares} cerrado",
+                        "a que hora cierran en {lugares}",
+                        "hasta que hora puedo ir a {lugares}",
+                        "hora de cierre de {lugares}",
+                        "cuando cierra {lugares}",
+                        "en que horario cierra {lugares}",
+                        "a que hora cierra {lugares}",
+                        "cual es la hora de cierre de {lugares}"
+                    ]
+                },
+                {
+                    "name": "horario",
+                    "slots": [
+                        {
+                            "name": "lugares",
+                            "type": "lugares"
+                        }
+                    ],
+                    "samples": [
+                        "dame el horario de la {lugares}",
+                        "dame el horario de el {lugares}",
+                        "cuando va a abrir {lugares}",
+                        "a que hora puedo ir a {lugares}",
+                        "cuando esta {lugares} abierto",
+                        "cuando esta abierto en {lugares}",
+                        "cuando esta abierto {lugares}",
+                        "de que hora a que hora está abierto {lugares}",
+                        "dame el horario de {lugares}",
+                        "horario de {lugares}",
+                        "cual es el horario de {lugares}"
+                    ]
+                },
+                {
+                    "name": "dondePuedo",
+                    "slots": [
+                        {
+                            "name": "acciones",
+                            "type": "acciones"
+                        }
+                    ],
+                    "samples": [
+                        "quisiera saber donde puedo {acciones}",
+                        "quiero saber donde puedo {acciones}",
+                        "quisiera {acciones}",
+                        "quiero {acciones}",
+                        "a donde puedo ir a {acciones}",
+                        "donde puedo ir a {acciones}",
+                        "en que parte puedo {acciones}",
+                        "en donde puedo {acciones}",
+                        "dónde puedo {acciones}",
+                        "como puedo {acciones}",
+                        "se puede {acciones} dentro del campus",
+                        "en alguna parte se puede {acciones}",
+                        "en que parte del campus puedo {acciones}",
+                        "{acciones}",
+                        "donde puedo {acciones}"
+                    ]
+                },
+                {
+                    "name": "dondeQueda",
+                    "slots": [
+                        {
+                            "name": "lugares",
+                            "type": "lugares"
+                        }
+                    ],
+                    "samples": [
+                        "en dónde está {lugares}",
+                        "sabes como llegar a {lugares}",
+                        "como le hago para ir a {lugares}",
+                        "me ayudas a llegar a {lugares}",
+                        "no se como llegar a {lugares}",
+                        "como llegar a {lugares}",
+                        "como puedo llegar a {lugares}",
+                        "como llego a {lugares}",
+                        "donde queda {lugares}",
+                        "donde está {lugares}"
+                    ]
+                },
+                {
+                    "name": "AbrePuntoAzul",
+                    "slots": [],
+                    "samples": [
+                        "Cierra la squil y vamos a punto azul",
+                        "Cierra la skill y vamos a punto azul"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "lugares",
+                    "values": [
+                        {
+                            "id": "CircuitoTec",
+                            "name": {
+                                "value": "Circuito",
+                                "synonyms": [
+                                    "circuitotec",
+                                    "circuito tec",
+                                    "por donde pasa el circuito",
+                                    "la parada del circuito",
+                                    "la parada del circuito tec",
+                                    "para tomar el circuito",
+                                    "donde pasan los circuitos",
+                                    "parada del circuito",
+                                    "el circuito"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "Santander",
+                            "name": {
+                                "value": "Santander",
+                                "synonyms": [
+                                    "santander",
+                                    "banco santander"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "Enfermeria",
+                            "name": {
+                                "value": "Enfermería",
+                                "synonyms": [
+                                    "un doctor",
+                                    "la enfermeria",
+                                    "Enfermeria",
+                                    "Enfermeros",
+                                    "Medicinas",
+                                    "Doctores",
+                                    "Enfermeria"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "BBVA",
+                            "name": {
+                                "value": "BBVA",
+                                "synonyms": [
+                                    "B B V A",
+                                    "bbva",
+                                    "banco bebeubea",
+                                    "banco bbva",
+                                    "bebeubea",
+                                    "b b v a",
+                                    "bancomer"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "Oxxo",
+                            "name": {
+                                "value": "Oxxo",
+                                "synonyms": [
+                                    "tiendita",
+                                    "oxxo de aulas 4",
+                                    "oxxo de centrales",
+                                    "el oxxo"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "Panem",
+                            "name": {
+                                "value": "Panem",
+                                "synonyms": [
+                                    "panaderia panem",
+                                    "el panem"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "TimHortons",
+                            "name": {
+                                "value": "Tim Hortons",
+                                "synonyms": [
+                                    "TimHortons",
+                                    "el tim hortons",
+                                    "Timbits",
+                                    "Hortons",
+                                    "Tim"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "Locatec",
+                            "name": {
+                                "value": "locatec",
+                                "synonyms": [
+                                    "loca tec",
+                                    "cosas perdidas",
+                                    "centro de cosas perdidas"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "Gym",
+                            "name": {
+                                "value": "Gimnasio",
+                                "synonyms": [
+                                    "zona de pesas",
+                                    "las pesas",
+                                    "el gimnasio",
+                                    "el gym",
+                                    "pesas",
+                                    "gym"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "CIMA",
+                            "name": {
+                                "value": "CIMA",
+                                "synonyms": [
+                                    "sima",
+                                    "las impresoras cima",
+                                    "centro de copias",
+                                    "centro de impresión",
+                                    "impresiones"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "PuntoAzul",
+                            "name": {
+                                "value": "punto azul",
+                                "synonyms": [
+                                    "el punto azul"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "TecStore",
+                            "name": {
+                                "value": "tecstore",
+                                "synonyms": [
+                                    "la tec store",
+                                    "tec store",
+                                    "la tienda del tec",
+                                    "tec tienda",
+                                    "tienda tec"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "Cafeteria",
+                            "name": {
+                                "value": "cafeteria",
+                                "synonyms": [
+                                    "alguna cafeteria",
+                                    "la cafeteria",
+                                    "centrales",
+                                    "jubileo",
+                                    "starbucks",
+                                    "restaurantes",
+                                    "cafeterias"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "CanchasEscamilla",
+                            "name": {
+                                "value": "canchas",
+                                "synonyms": [
+                                    "canchas de futbol",
+                                    "canchas",
+                                    "campos escamilla",
+                                    "escamilla",
+                                    "centros deportivos"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "BiblioTec",
+                            "name": {
+                                "value": "BiblioTec",
+                                "synonyms": [
+                                    "biblioteca",
+                                    "la biblioteca",
+                                    "biblio tec",
+                                    "biblio"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "acciones",
+                    "values": [
+                        {
+                            "id": "idTomarElCircuito",
+                            "name": {
+                                "value": "tomar el circuito",
+                                "synonyms": [
+                                    "tomar el circuito tec",
+                                    "subirme al circuito tec",
+                                    "tomar los camioncitos",
+                                    "subirme al circuito"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "idDepositar",
+                            "name": {
+                                "value": "depositar",
+                                "synonyms": [
+                                    "realizar un deposito",
+                                    "retirar dinero",
+                                    "realizar depositos",
+                                    "depositar lana",
+                                    "depositar dinero",
+                                    "hacer depositos",
+                                    "depositar a una cuenta"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "idChecarme",
+                            "name": {
+                                "value": "checarme",
+                                "synonyms": [
+                                    "conseguir medicina",
+                                    "conseguir aspirina",
+                                    "checarme la temperatura",
+                                    "ver a un doctor",
+                                    "consultar con un doctor",
+                                    "consultar",
+                                    "checarme la presión",
+                                    "si necesito medicinas",
+                                    "si me estoy sintiendo mal",
+                                    "consultarme"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "idEstacionarse",
+                            "name": {
+                                "value": "estacionarme",
+                                "synonyms": [
+                                    "estacionar mi carro",
+                                    "dejar mi auto",
+                                    "dejar mi coche",
+                                    "Dejar mi carro",
+                                    "estacionarme",
+                                    "Estacionarse"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "idCoffee",
+                            "name": {
+                                "value": "comprar café",
+                                "synonyms": [
+                                    "tiendas de cafe",
+                                    "pedirme un cafe",
+                                    "comprarme un cafe",
+                                    "pedir un café",
+                                    "pedir un cafe",
+                                    "cafe",
+                                    "comprar un cafe",
+                                    "comprar cafe",
+                                    "tomar café",
+                                    "comprar un café",
+                                    "café"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "idLost",
+                            "name": {
+                                "value": "buscar cosas",
+                                "synonyms": [
+                                    "encontrar cosas perdidas",
+                                    "buscar cosas perdidas"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "idPagar",
+                            "name": {
+                                "value": "pagar",
+                                "synonyms": [
+                                    "pagar la colegiatura de mi hija",
+                                    "pagar la colegiatura de mi hijo",
+                                    "hacer pagos",
+                                    "pagar el tec",
+                                    "pagar la colegiatura"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "idTramites",
+                            "name": {
+                                "value": "hacer tramites",
+                                "synonyms": [
+                                    "sacar comprobantes",
+                                    "sacar papeleria",
+                                    "hacer papeleria",
+                                    "sacar unos tramites",
+                                    "hacer tramites",
+                                    "realizar tramites",
+                                    "preguntar"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "idComer",
+                            "name": {
+                                "value": "comer",
+                                "synonyms": [
+                                    "comprar desayuno",
+                                    "comprar de cenar",
+                                    "comprar cena",
+                                    "comprar comida",
+                                    "calentar comida",
+                                    "calentar mi comida",
+                                    "cenar",
+                                    "desayunar"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "idImprimir",
+                            "name": {
+                                "value": "imprimir",
+                                "synonyms": [
+                                    "hacer impresiones",
+                                    "imprimir de un usb",
+                                    "imprimir mi tarea",
+                                    "imprimir archivos",
+                                    "sacar impresiones",
+                                    "sacar copias"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
