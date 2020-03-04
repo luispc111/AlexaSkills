@@ -1,0 +1,73 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "test well",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "Fisica",
+                    "slots": [
+                        {
+                            "name": "numberInput",
+                            "type": "numberInput"
+                        }
+                    ],
+                    "samples": [
+                        "{numberInput}",
+                        "test físico",
+                        "evaluación de física",
+                        "Evalucación física",
+                        "Física"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "numberInput",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "5"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "4"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "3"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "2"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "1"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
