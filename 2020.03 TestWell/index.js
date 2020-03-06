@@ -36,6 +36,9 @@ const FisicaIntentHandler = {
     },
     handle(handlerInput) {
         
+        //lo que quiero hacer aquí, es que si no me da un input valido, que de todas formas entre, pero te diga hey bab0s0, del 1 al 5 jsjsjs
+        // if()
+        
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         let speakOutput = '';
         let a = '';
@@ -43,34 +46,39 @@ const FisicaIntentHandler = {
         // TEST DE FÍSICA
         if(sessionAttributes.queTest === 0){
             switch(sessionAttributes.turn){
+                
                 case 0:
-                    speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5... Pregunta numero 1. Responde: ';
+                    speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo, 2, parcialmente en desacuerdo, 3, neutral, 4, parcialmente de acuerdo y 5, totalmente de acuerdo...';
+                    speakOutput = 'Pregunta numero 1. "Hago ejercicio 3 veces por semana"';
                     sessionAttributes.turn++;
                     break;
                 case 1:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta 2, responde:';
+                    speakOutput = 'Pregunta numero 2. "Hago 5 minutos de estiramiento todos los días"';
                     sessionAttributes.turn++;
                     break;
                 
                 case 2:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta 3, responde: ';
+                    speakOutput = 'Pregunta numero 3. "Mis amigos y familiares me animan a tener una vida activa"';
                     sessionAttributes.turn++;
                     break;
                     
                 case 3:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Obtuviste un total de ' + sessionAttributes.result;
-                    // if(sessionAttributes.result < 4){
-                    //     speakOutput = 'resultados finales' + sessionAttributes.result;
-                    // }
-                    // else if(sessionAttributes.result < 9){
-                    //     speakOutput = 'resultados finales' + sessionAttributes.result;
-                    // }
+                    speakOutput = 'Obtuviste ' + sessionAttributes.result + ' de 15 puntos.';
+                    if(sessionAttributes.result <= 7){
+                        speakOutput += ' Te fue mal';
+                    }
+                    else if(sessionAttributes.result <= 11){
+                        speakOutput += ' dos tres';
+                    }
+                    else if(sessionAttributes.result <= 15){
+                        speakOutput += ' good';
+                    }
                     sessionAttributes.turn = 0;
                     break;
             }
