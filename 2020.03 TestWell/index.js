@@ -12,16 +12,23 @@ const LaunchRequestHandler = {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.result = 0;
         sessionAttributes.turn = 0;
+        /*
+            turn 0 = first question
+            turn 1 = second question
+            turn 2 = third question
+            turn 3 = results
+        */
         sessionAttributes.queTest = 0;
         /*
             test 0 = Fisica
-            test 1 = ...
+            test 1 = Nutrición
+            test 2 = ...
         */
         
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
         
         let speakOutput = 'Bienvenido, TestWell te ayudara a conocer tus fortalezas y debilidades en diferentes dimensiones de Salud y Bienestar.';
-        speakOutput += 'Para comenzar, necesito que me digas que test quieres tomar, existe el test físico, y otros... .';
+        speakOutput += 'Para comenzar, necesito que me digas que test quieres tomar, existe el test físico, test de nutrición y otros... .';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(speakOutput)
@@ -36,20 +43,30 @@ const FisicaIntentHandler = {
     },
     handle(handlerInput) {
         
-        //lo que quiero hacer aquí, es que si no me da un input valido, que de todas formas entre, pero te diga hey bab0s0, del 1 al 5 jsjsjs
-        // if()
-        
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         let speakOutput = '';
         let a = '';
         
+        // input invalido, porfa dame del 1 al 5 jsjsjs
+        // if(sessionAttributes.turn === 0 /* && EL INPUT ES UN NUMERO*/){
+        //     // doesn't make sense, try again
+        // }
+        // guarda en alguna variable que test está tomando
+        if(sessionAttributes.turn === 0){
+            a = Alexa.getSlot(handlerInput.requestEnvelope, "testInput");
+            sessionAttributes.queTest = Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.id);
+        }
+        // else if (sessionAttributes.turn !== 0 /* && EL INPUT NO SE RECONOCE*/){
+        //     // dame un numero pofavooo
+        // }
+        
         // TEST DE FÍSICA
         if(sessionAttributes.queTest === 0){
-            switch(sessionAttributes.turn){
                 
+            switch(sessionAttributes.turn){
                 case 0:
                     speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo, 2, parcialmente en desacuerdo, 3, neutral, 4, parcialmente de acuerdo y 5, totalmente de acuerdo...';
-                    speakOutput = 'Pregunta numero 1. "Hago ejercicio 3 veces por semana"';
+                    speakOutput += 'Pregunta numero 1. "Hago ejercicio 3 veces por semana"';
                     sessionAttributes.turn++;
                     break;
                 case 1:
@@ -58,14 +75,12 @@ const FisicaIntentHandler = {
                     speakOutput = 'Pregunta numero 2. "Hago 5 minutos de estiramiento todos los días"';
                     sessionAttributes.turn++;
                     break;
-                
                 case 2:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
                     speakOutput = 'Pregunta numero 3. "Mis amigos y familiares me animan a tener una vida activa"';
                     sessionAttributes.turn++;
                     break;
-                    
                 case 3:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
@@ -80,31 +95,56 @@ const FisicaIntentHandler = {
                         speakOutput += ' good';
                     }
                     sessionAttributes.turn = 0;
+                    sessionAttributes.result = 0;
                     break;
             }
         }
+        else if(sessionAttributes.queTest === 1){
+                
+            switch(sessionAttributes.turn){
+                case 0:
+                    speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo, 2, parcialmente en desacuerdo, 3, neutral, 4, parcialmente de acuerdo y 5, totalmente de acuerdo...';
+                    speakOutput += 'Pregunta numero 1. "Como frutas y verduras todos los días"';
+                    sessionAttributes.turn++;
+                    break;
+                case 1:
+                    a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
+                    sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+                    speakOutput = 'Pregunta numero 2. "Evito comer en restaurantes de comida rápida"';
+                    sessionAttributes.turn++;
+                    break;
+                case 2:
+                    a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
+                    sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+                    speakOutput = 'Pregunta numero 3. "Soy consciente y mantengo mi peso controlado"';
+                    sessionAttributes.turn++;
+                    break;
+                case 3:
+                    a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
+                    sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+                    speakOutput = 'Obtuviste ' + sessionAttributes.result + ' de 15 puntos.';
+                    if(sessionAttributes.result <= 7){
+                        speakOutput += ' Te fue mal';
+                    }
+                    else if(sessionAttributes.result <= 11){
+                        speakOutput += ' dos tres';
+                    }
+                    else if(sessionAttributes.result <= 15){
+                        speakOutput += ' good';
+                    }
+                    sessionAttributes.turn = 0;
+                    sessionAttributes.result = 0;
+                    break;
+            }
+        }
+    
         
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
-            .getResponse();
+    return handlerInput.responseBuilder
+        .speak(speakOutput)
+        .reprompt(speakOutput)
+        .getResponse();
     }
 };
-
-
-// const HelloWorldIntentHandler = {
-//     canHandle(handlerInput) {
-//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-//             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
-//     },
-//     handle(handlerInput) {
-//         const speakOutput = '"Hello there!"';
-//         return handlerInput.responseBuilder
-//             .speak(speakOutput)
-//             // .reprompt('add a reprompt if you want to keep the session open for the user to respond')
-//             .getResponse();
-//     }
-// };
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {

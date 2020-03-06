@@ -25,14 +25,18 @@
                         {
                             "name": "numberInput",
                             "type": "numberInput"
+                        },
+                        {
+                            "name": "testInput",
+                            "type": "testInput"
                         }
                     ],
                     "samples": [
                         "{numberInput}",
-                        "test físico",
-                        "evaluación de física",
-                        "Evalucación física",
-                        "Física"
+                        "test {testInput}",
+                        "evaluación de {testInput}",
+                        "Evalucación {testInput}",
+                        "{testInput}"
                     ]
                 }
             ],
@@ -63,6 +67,26 @@
                         {
                             "name": {
                                 "value": "1"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "testInput",
+                    "values": [
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "nutrición"
+                            }
+                        },
+                        {
+                            "id": "0",
+                            "name": {
+                                "value": "físico",
+                                "synonyms": [
+                                    "física"
+                                ]
                             }
                         }
                     ]
