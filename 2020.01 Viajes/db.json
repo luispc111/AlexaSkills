@@ -1,0 +1,90 @@
+{
+    {
+        "vp":"David",
+        "vpName": "Rectoría",
+        "gastosjd19": 54.3,
+        "planjd19": 0,
+        "varvsplan2019": 54.3,
+        "gastosjd18": 45.8,
+        "varvsplan2018": 8.5, 
+        "gastosjd14": 17.6,
+        "varvsplan2014": 7.3
+    },
+    {
+        "vp":"Victor",
+        "vpName": "Vicepresidente de Operaciones",
+        "gastosjd19": 11.1,
+        "planjd19": 0,
+        "varvsplan2019": 11.1,
+        "gastosjd18": 15.6,
+        "varvsplan2018": -4.4, 
+        "gastosjd14": 0.6,
+        "varvsplan2014": 2.1
+    },
+    {
+        "vp":"Juan Pablo",
+        "vpName": "Relaciones y Desarollo",
+        "gastosjd19": 6.6,
+        "planjd19": 6.7,
+        "varvsplan2019": -0.1,
+        "gastosjd18": 5.1,
+        "varvsplan2018": 1.5, 
+        "gastosjd14": 1.9,
+        "varvsplan2014": 0.9
+    },
+    {
+        "vp":"Hernán",
+        "vpName": "Talento y Cultura",
+        "gastosjd19": 4.7,
+        "planjd19": 2.4,
+        "varvsplan2019": 2.3,
+        "gastosjd18": 4.4,
+        "varvsplan2018": 0.3, 
+        "gastosjd14": 1.4,
+        "varvsplan2014": 0.7
+    },
+    {
+        "vp":"Bruno",
+        "vpName": "Estrategia, Transformación y Futuro Digital",
+        "gastosjd19": 6.3,
+        "planjd19": 6.5,
+        "varvsplan2019": -0.2,
+        "gastosjd18": 2.4,
+        "varvsplan2018": 3.9, 
+        "gastosjd14": 1.1,
+        "varvsplan2014": 1.0
+    },
+    {
+        "vp":"Rodolfo",
+        "vpName": "Comunicación e Imagen",
+        "gastosjd19": 4.2,
+        "planjd19": 3.6,
+        "varvsplan2019": 0.6,
+        "gastosjd18": 3.6,
+        "varvsplan2018": 0.6, 
+        "gastosjd14": 0.5,
+        "varvsplan2014": 0.7
+    },
+    {
+        "vp": "Pascual",
+        "vpName": "Vicepresidente de Administración y Finanzas",
+        "gastosjd19": 3.5,
+        "planjd19": 3.4,
+        "varvsplan2019": 0.1,
+        "gastosjd18": 3.9,
+        "varvsplan2018": -0.4, 
+        "gastosjd14": 3.6,
+        "varvsplan2014": 0.0
+    },
+    {
+        "vp": "Salvador",
+        "vpName": "Presidencia",
+        "gastosjd19": 1.1,
+        "planjd19": 0.9,
+        "varvsplan2019": 0.1,
+        "gastosjd18": 0.8,
+        "varvsplan2018": 0.3, 
+        "gastosjd14": 0.2,
+        "varvsplan2014": 0.2
+    }
+}
