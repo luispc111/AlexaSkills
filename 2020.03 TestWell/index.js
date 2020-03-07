@@ -48,7 +48,7 @@ const FisicaIntentHandler = {
         let a = '';
         
         // input invalido, porfa dame del 1 al 5 jsjsjs
-        // if(sessionAttributes.turn === 0 /* && EL INPUT ES UN NUMERO*/){
+        // if(sessionAttributes.turn === 0 && /* && EL INPUT ES UN NUMERO*/){
         //     // doesn't make sense, try again
         // }
         // guarda en alguna variable que test está tomando
@@ -65,20 +65,20 @@ const FisicaIntentHandler = {
                 
             switch(sessionAttributes.turn){
                 case 0:
-                    speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo, 2, parcialmente en desacuerdo, 3, neutral, 4, parcialmente de acuerdo y 5, totalmente de acuerdo...';
-                    speakOutput += 'Pregunta numero 1. "Hago ejercicio 3 veces por semana"';
+                    speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo y 5 significa totalmente de acuerdo. <break time="1s"/>';
+                    speakOutput += 'Pregunta numero 1. <break time="50ms"/> "Hago ejercicio 3 veces por semana"';
                     sessionAttributes.turn++;
                     break;
                 case 1:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta numero 2. "Hago 5 minutos de estiramiento todos los días"';
+                    speakOutput = 'Pregunta numero 2. <break time="50ms"/> "Hago 5 minutos de estiramiento todos los días"';
                     sessionAttributes.turn++;
                     break;
                 case 2:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta numero 3. "Mis amigos y familiares me animan a tener una vida activa"';
+                    speakOutput = 'Pregunta numero 3. <break time="50ms"/> "Mis amigos y familiares me animan a tener una vida activa"';
                     sessionAttributes.turn++;
                     break;
                 case 3:
@@ -103,20 +103,20 @@ const FisicaIntentHandler = {
                 
             switch(sessionAttributes.turn){
                 case 0:
-                    speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo, 2, parcialmente en desacuerdo, 3, neutral, 4, parcialmente de acuerdo y 5, totalmente de acuerdo...';
-                    speakOutput += 'Pregunta numero 1. "Como frutas y verduras todos los días"';
+                    speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo y 5 significa totalmente de acuerdo. <break time="1s"/>';
+                    speakOutput += 'Pregunta numero 1. <break time="50ms"/> "Como frutas y verduras todos los días"';
                     sessionAttributes.turn++;
                     break;
                 case 1:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta numero 2. "Evito comer en restaurantes de comida rápida"';
+                    speakOutput = 'Pregunta numero 2. <break time="50ms"/> "Evito comer en restaurantes de comida rápida"';
                     sessionAttributes.turn++;
                     break;
                 case 2:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta numero 3. "Soy consciente y mantengo mi peso controlado"';
+                    speakOutput = 'Pregunta numero 3. <break time="50ms"/> "Soy consciente y mantengo mi peso controlado"';
                     sessionAttributes.turn++;
                     break;
                 case 3:
