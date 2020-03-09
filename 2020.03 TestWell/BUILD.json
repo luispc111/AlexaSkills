@@ -75,13 +75,19 @@
                     "name": "testInput",
                     "values": [
                         {
-                            "id": "1",
+                            "id": "0",
+                            "name": {
+                                "value": "completo"
+                            }
+                        },
+                        {
+                            "id": "2",
                             "name": {
                                 "value": "nutrición"
                             }
                         },
                         {
-                            "id": "0",
+                            "id": "1",
                             "name": {
                                 "value": "físico",
                                 "synonyms": [

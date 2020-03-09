@@ -13,16 +13,20 @@ const LaunchRequestHandler = {
         sessionAttributes.result = 0;
         sessionAttributes.turn = 0;
         /*
-            turn 0 = first question
+            turn 0 = intro + first question
             turn 1 = second question
             turn 2 = third question
             turn 3 = results
         */
         sessionAttributes.queTest = 0;
         /*
-            test 0 = Fisica
-            test 1 = Nutrición
-            test 2 = ...
+            test 1 = Física
+            test 2 = Nutrición
+        */
+        sessionAttributes.testCompleto = 0;
+        /*
+            nope = 0
+            testCompleto = 1
         */
         
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
@@ -54,17 +58,28 @@ const FisicaIntentHandler = {
         // guarda en alguna variable que test está tomando
         if(sessionAttributes.turn === 0){
             a = Alexa.getSlot(handlerInput.requestEnvelope, "testInput");
-            sessionAttributes.queTest = Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.id);
+            if(sessionAttributes.testCompleto !== 1){
+                sessionAttributes.queTest = Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.id);
+            }
+            
+        }
+
+        if(sessionAttributes.queTest === 0){
+            sessionAttributes.queTest = 1;
+            sessionAttributes.testCompleto = 1;
         }
         // else if (sessionAttributes.turn !== 0 /* && EL INPUT NO SE RECONOCE*/){
         //     // dame un numero pofavooo
         // }
         
         // TEST DE FÍSICA
-        if(sessionAttributes.queTest === 0){
+        if(sessionAttributes.queTest === 1){
                 
             switch(sessionAttributes.turn){
                 case 0:
+                    // if(sessionAttributes.testCompleto !== 1){
+                    //     speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo y 5 significa totalmente de acuerdo. <break time="1s"/>';
+                    // }
                     speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo y 5 significa totalmente de acuerdo. <break time="1s"/>';
                     speakOutput += 'Pregunta numero 1. <break time="50ms"/> "Hago ejercicio 3 veces por semana"';
                     sessionAttributes.turn++;
@@ -79,31 +94,50 @@ const FisicaIntentHandler = {
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
                     speakOutput = 'Pregunta numero 3. <break time="50ms"/> "Mis amigos y familiares me animan a tener una vida activa"';
-                    sessionAttributes.turn++;
+                    
+                    if(sessionAttributes.testCompleto === 1){
+                        sessionAttributes.queTest = 2;
+                        sessionAttributes.turn = 0;
+                    }
+                    else{
+                        sessionAttributes.turn++;
+                    }
                     break;
                 case 3:
-                    a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
-                    sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Obtuviste ' + sessionAttributes.result + ' de 15 puntos.';
-                    if(sessionAttributes.result <= 7){
-                        speakOutput += ' Te fue mal';
+                    if(sessionAttributes.testCompleto !== 1){
+                        a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
+                        sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+                        speakOutput = 'Obtuviste ' + sessionAttributes.result + ' de 15 puntos. ';
+                        if(sessionAttributes.result <= 7){
+                            speakOutput += 'Puedes mejorar tu estado físico comiendo mejor y realizando pequeñas actividades físicas, como salir a trotar o estirar por las mañanas. ';
+                        }
+                        else if(sessionAttributes.result <= 11){
+                            speakOutput += '¡Nada mal! Pero aún puedes mejorar tu estado físico. ';
+                        }
+                        else if(sessionAttributes.result <= 15){
+                            speakOutput += '¡Bien! Sigue de la misma forma y tu cuerpo te lo agradecerá. ';
+                        }
+                        speakOutput += 'Para realizar otro test, solo dí: test físico, nutrición, entre otros. ';
+                        sessionAttributes.turn = 0;
+                        sessionAttributes.result = 0; 
                     }
-                    else if(sessionAttributes.result <= 11){
-                        speakOutput += ' dos tres';
+                    else{
+                        
                     }
-                    else if(sessionAttributes.result <= 15){
-                        speakOutput += ' good';
-                    }
-                    sessionAttributes.turn = 0;
-                    sessionAttributes.result = 0;
                     break;
             }
         }
-        else if(sessionAttributes.queTest === 1){
+        else if(sessionAttributes.queTest === 2){
                 
             switch(sessionAttributes.turn){
                 case 0:
-                    speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo y 5 significa totalmente de acuerdo. <break time="1s"/>';
+                    if(sessionAttributes.testCompleto !== 1){
+                        speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo y 5 significa totalmente de acuerdo. <break time="1s"/>';   
+                    }
+                    else{
+                        a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
+                        sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+                    }
                     speakOutput += 'Pregunta numero 1. <break time="50ms"/> "Como frutas y verduras todos los días"';
                     sessionAttributes.turn++;
                     break;
@@ -117,23 +151,38 @@ const FisicaIntentHandler = {
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
                     speakOutput = 'Pregunta numero 3. <break time="50ms"/> "Soy consciente y mantengo mi peso controlado"';
-                    sessionAttributes.turn++;
+                    
+                    // if(sessionAttributes.testCompleto === 1){
+                    //     sessionAttributes.queTest = 3;
+                    //     sessionAttributes.turn = 3;
+                    // }
+                    // else{
+                    // if(sessionAttributes.testCompleto !== 1){
+                        sessionAttributes.turn++;
+                    // }
                     break;
                 case 3:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.result += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Obtuviste ' + sessionAttributes.result + ' de 15 puntos.';
-                    if(sessionAttributes.result <= 7){
-                        speakOutput += ' Te fue mal';
+                    if(sessionAttributes.testCompleto !== 1){
+                        speakOutput = 'Obtuviste ' + sessionAttributes.result + ' de 15 puntos.';
+                        if(sessionAttributes.result <= 7){
+                            speakOutput += ' Te fue mal';
+                        }
+                        else if(sessionAttributes.result <= 11){
+                            speakOutput += ' dos tres';
+                        }
+                        else if(sessionAttributes.result <= 15){
+                            speakOutput += ' good';
+                        }
                     }
-                    else if(sessionAttributes.result <= 11){
-                        speakOutput += ' dos tres';
+                    else{
+                        speakOutput += 'Obtuviste un total de: ' + sessionAttributes.result;
                     }
-                    else if(sessionAttributes.result <= 15){
-                        speakOutput += ' good';
-                    }
+
                     sessionAttributes.turn = 0;
                     sessionAttributes.result = 0;
+                    sessionAttributes.testCompleto = 0;
                     break;
             }
         }
