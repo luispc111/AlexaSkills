@@ -75,6 +75,15 @@
                     "name": "testInput",
                     "values": [
                         {
+                            "id": "3",
+                            "name": {
+                                "value": "cuidado",
+                                "synonyms": [
+                                    "cuidado personal"
+                                ]
+                            }
+                        },
+                        {
                             "id": "0",
                             "name": {
                                 "value": "completo"
