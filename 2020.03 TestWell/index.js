@@ -10,6 +10,7 @@ const LaunchRequestHandler = {
     handle(handlerInput) {
         
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.counter = 1;
         sessionAttributes.resultTotal = 0;
         sessionAttributes.resultFisico = 0;
         sessionAttributes.resultNutricion = 0;
@@ -38,7 +39,7 @@ const LaunchRequestHandler = {
         
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
         
-        let speakOutput = 'Bienvenido, TestWell te ayudara a conocer tus fortalezas y debilidades en diferentes dimensiones de Salud y Bienestar.';
+        let speakOutput = 'Bienvenido, TestWell te ayudara a conocer tus fortalezas y debilidades en diferentes dimensiones de Salud y Bienestar. ';
         speakOutput += 'Para comenzar, necesito que me digas que test quieres tomar, existe el test físico, test de nutrición y otros... .';
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -76,26 +77,30 @@ const FisicaIntentHandler = {
             switch(sessionAttributes.turn){
                 case 0:
                     speakOutput = 'Te haré una serie de preguntas que tendrás que contestar del 1 al 5, 1 significa en total desacuerdo y 5 significa totalmente de acuerdo. <break time="1s"/>';
-                    speakOutput += 'Pregunta numero 1. <break time="50ms"/> "Hago ejercicio 3 veces por semana"';
+                    speakOutput += 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Hago ejercicio 3 veces por semana"';
                     sessionAttributes.turn++;
+                    sessionAttributes.counter++;
                     break;
                 case 1:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.resultFisico += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta numero 2. <break time="50ms"/> "Hago 5 minutos de estiramiento todos los días"';
+                    speakOutput = 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Hago 5 minutos de estiramiento todos los días"';
                     sessionAttributes.turn++;
+                    sessionAttributes.counter++;
                     break;
                 case 2:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.resultFisico += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta numero 3. <break time="50ms"/> "Mis amigos y familiares me animan a tener una vida activa"';
+                    speakOutput = 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Mis amigos y familiares me animan a tener una vida activa"';
                     
                     if(sessionAttributes.testCompleto === 1){
                         sessionAttributes.queTest = 2;
                         sessionAttributes.turn = 0;
+                        sessionAttributes.counter++;
                     }
                     else{
                         sessionAttributes.turn++;
+                        sessionAttributes.counter = 1;
                     }
                     break;
                 case 3:
@@ -119,6 +124,8 @@ const FisicaIntentHandler = {
                     break;
             }
         }
+
+        // TEST NUTRICIÓN
         else if(sessionAttributes.queTest === 2){
                 
             switch(sessionAttributes.turn){
@@ -131,28 +138,32 @@ const FisicaIntentHandler = {
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                         sessionAttributes.resultFisico += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
                     }
-                    speakOutput += 'Pregunta numero 1. <break time="50ms"/> "Como frutas y verduras todos los días"';
+                    speakOutput += 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Como frutas y verduras todos los días"';
                     sessionAttributes.turn++;
+                    sessionAttributes.counter++;
                     break;
                 
                 case 1:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.resultNutricion += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta numero 2. <break time="50ms"/> "Evito comer en restaurantes de comida rápida"';
+                    speakOutput = 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Evito comer en restaurantes de comida rápida"';
                     sessionAttributes.turn++;
+                    sessionAttributes.counter++;
                     break;
                 
                 case 2:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.resultNutricion += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta numero 3. <break time="50ms"/> "Soy consciente y mantengo mi peso controlado"';
+                    speakOutput = 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Soy consciente y mantengo mi peso controlado"';
                     
                     if(sessionAttributes.testCompleto === 1){
                         sessionAttributes.queTest = 3;
                         sessionAttributes.turn = 0;
+                        sessionAttributes.counter++;
                     }
                     else{
                         sessionAttributes.turn++;
+                        sessionAttributes.counter = 1;
                     }
                     break;
                 
@@ -177,6 +188,8 @@ const FisicaIntentHandler = {
                     break;
             }
         }
+
+        // TEST CUIDADO PERSONAL
         else if(sessionAttributes.queTest === 3){
                 
             switch(sessionAttributes.turn){
@@ -188,19 +201,21 @@ const FisicaIntentHandler = {
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                         sessionAttributes.resultNutricion += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
                     }
-                    speakOutput += 'Pregunta numero 1. <break time="50ms"/> "Evito el uso del tabaco en general"';
+                    speakOutput += 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Evito el uso del tabaco en general"';
                     sessionAttributes.turn++;
+                    sessionAttributes.counter++;
                     break;
                 case 1:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.resultCuidado += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta numero 2. <break time="50ms"/> "Uso protector solar"';
+                    speakOutput = 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Uso protector solar"';
                     sessionAttributes.turn++;
+                    sessionAttributes.counter++;
                     break;
                 case 2:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.resultCuidado += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    speakOutput = 'Pregunta numero 3. <break time="50ms"/> "Me limpio los dientes a diario"';
+                    speakOutput = 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Me limpio los dientes a diario"';
                     
                     // if(sessionAttributes.testCompleto === 1){
                     //     sessionAttributes.queTest = 3;
@@ -209,6 +224,7 @@ const FisicaIntentHandler = {
                     // else{
                     // if(sessionAttributes.testCompleto !== 1){
                         sessionAttributes.turn++;
+                        sessionAttributes.counter = 1;
                     // }
                     break;
                 case 3:
@@ -233,12 +249,15 @@ const FisicaIntentHandler = {
                         speakOutput += ' puntos fueron del test de nutrición y ' + sessionAttributes.resultCuidado + ' puntos del test de cuidado personal. ';
                     }
 
-                    sessionAttributes.turn = 0;
+                    // restart scores
                     sessionAttributes.resultFisico = 0;
                     sessionAttributes.resultNutricion = 0;
                     sessionAttributes.resultCuidado = 0;
                     sessionAttributes.resultTotal = 0;
+                    
+                    sessionAttributes.turn = 0;
                     sessionAttributes.testCompleto = 0;
+                    sessionAttributes.counter = 1;
                     break;
             }
         }
