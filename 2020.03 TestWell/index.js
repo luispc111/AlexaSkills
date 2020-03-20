@@ -114,16 +114,44 @@ const FisicaIntentHandler = {
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                         sessionAttributes.resultFisico += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
                         speakOutput = 'Obtuviste ' + sessionAttributes.resultFisico + ' de 15 puntos. ';
+                        let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultFisico <= 7){
-                            speakOutput += 'Puedes mejorar tu estado físico comiendo mejor y realizando pequeñas actividades físicas, como salir a trotar o estirar por las mañanas. ';
+                            speakOutput += 'Aquí hay algo que se puede mejorar. ';
+                            if(random === 1){
+                                speakOutput += 'Empieza realizando pequeñas actividades físicas, como salir a trotar o estirar por las mañanas. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Empieza a hacer ejercicio de forma más conciente. ¡Hazlo por ti!. ';
+                            }
+                            else{
+                                speakOutput += 'Evita descuidar tu cuerpo, el ejercicio es una gran manera de cuidarlo. ';
+                            }
                         }
                         else if(sessionAttributes.resultFisico <= 11){
                             speakOutput += '¡Nada mal! Pero aún puedes mejorar tu estado físico. ';
+                            if(random === 1){
+                                speakOutput += 'No descuides el ejercicio, ¡tu puedes!. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'No dejes de hacer ejercicio, verás que te hará muy bien. ';
+                            }
+                            else{
+                                speakOutput += 'Espero que ya hayas estirado tus cinco minutos de hoy. ';
+                            }
                         }
                         else if(sessionAttributes.resultFisico <= 15){
                             speakOutput += '¡Bien! Sigue de la misma forma y tu cuerpo te lo agradecerá. ';
+                            if(random === 1){
+                                speakOutput += 'Recuerda que un pilar de la dimensión física es conocer tus límites. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'La actividad física que hagas el día de hoy puede impactar altamente tu calidad de vida en la vejez. ';
+                            }
+                            else{
+                                speakOutput += 'Tu estado físico es uno de los 6 pilares del bienestar, sigue cuidandolo. '
+                            }
                         }
-                        speakOutput += 'Para realizar otro test, solo dí: test físico, nutrición, entre otros. ';
+                        speakOutput += 'Para realizar otro test, solo pidelo. ';
                         sessionAttributes.turn = 0;
                         sessionAttributes.resultFisico = 0; 
                     }
@@ -178,15 +206,43 @@ const FisicaIntentHandler = {
                     if(sessionAttributes.testCompleto !== 1){
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                         sessionAttributes.resultNutricion += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                        speakOutput = 'Obtuviste ' + sessionAttributes.resultNutricion + ' de 15 puntos.';
+                        speakOutput = 'Obtuviste ' + sessionAttributes.resultNutricion + ' de 15 puntos. ';
+                        let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultNutricion <= 7){
-                            speakOutput += ' Te fue mal';
+                            speakOutput += 'Te fue mal. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         else if(sessionAttributes.resultNutricion <= 11){
-                            speakOutput += ' dos tres';
+                            speakOutput += 'dos tres. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         else if(sessionAttributes.resultNutricion <= 15){
-                            speakOutput += ' good';
+                            speakOutput += 'good. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         sessionAttributes.turn = 0;
                         sessionAttributes.resultNutricion = 0;
@@ -242,15 +298,43 @@ const FisicaIntentHandler = {
                     if(sessionAttributes.testCompleto !== 1){
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                         sessionAttributes.resultCuidado += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                        speakOutput = 'Obtuviste ' + sessionAttributes.resultCuidado + ' de 15 puntos.';
+                        speakOutput = 'Obtuviste ' + sessionAttributes.resultCuidado + ' de 15 puntos. ';
+                        let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultCuidado <= 7){
-                            speakOutput += ' Te fue mal';
+                            speakOutput += 'Te fue mal. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         else if(sessionAttributes.resultCuidado <= 11){
-                            speakOutput += ' dos tres';
+                            speakOutput += 'dos tres. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         else if(sessionAttributes.resultCuidado <= 15){
-                            speakOutput += ' good';
+                            speakOutput += 'good. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         sessionAttributes.turn = 0;
                         sessionAttributes.resultCuidado = 0;
@@ -306,15 +390,43 @@ const FisicaIntentHandler = {
                     if(sessionAttributes.testCompleto !== 1){
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                         sessionAttributes.resultEmocional += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                        speakOutput = 'Obtuviste ' + sessionAttributes.resultEmocional + ' de 15 puntos.';
+                        speakOutput = 'Obtuviste ' + sessionAttributes.resultEmocional + ' de 15 puntos. ';
+                        let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultEmocional <= 7){
-                            speakOutput += ' Te fue mal';
+                            speakOutput += 'Te fue mal. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         else if(sessionAttributes.resultEmocional <= 11){
-                            speakOutput += ' dos tres';
+                            speakOutput += 'dos tres. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         else if(sessionAttributes.resultEmocional <= 15){
-                            speakOutput += ' good';
+                            speakOutput += 'good. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         sessionAttributes.turn = 0;
                         sessionAttributes.resultEmocional = 0;
@@ -370,15 +482,43 @@ const FisicaIntentHandler = {
                     if(sessionAttributes.testCompleto !== 1){
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                         sessionAttributes.resultIntelectual += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                        speakOutput = 'Obtuviste ' + sessionAttributes.resultIntelectual + ' de 15 puntos.';
+                        speakOutput = 'Obtuviste ' + sessionAttributes.resultIntelectual + ' de 15 puntos. ';
+                        let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultIntelectual <= 7){
-                            speakOutput += ' Te fue mal';
+                            speakOutput += 'Te fue mal. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         else if(sessionAttributes.resultIntelectual <= 11){
-                            speakOutput += ' dos tres';
+                            speakOutput += 'dos tres. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         else if(sessionAttributes.resultIntelectual <= 15){
-                            speakOutput += ' good';
+                            speakOutput += 'good. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         sessionAttributes.turn = 0;
                         sessionAttributes.resultIntelectual = 0;
@@ -429,15 +569,43 @@ const FisicaIntentHandler = {
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.resultEspiritual += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
                     if(sessionAttributes.testCompleto !== 1){
-                        speakOutput = 'Obtuviste ' + sessionAttributes.resultEspiritual + ' de 15 puntos.';
+                        speakOutput = 'Obtuviste ' + sessionAttributes.resultEspiritual + ' de 15 puntos. ';
+                        let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultEspiritual <= 7){
-                            speakOutput += ' Te fue mal';
+                            speakOutput += 'Te fue mal. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         else if(sessionAttributes.resultEspiritual <= 11){
-                            speakOutput += ' dos tres';
+                            speakOutput += 'dos tres. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                         else if(sessionAttributes.resultEspiritual <= 15){
-                            speakOutput += ' good';
+                            speakOutput += 'good. ';
+                            if(random === 1){
+                                speakOutput += 'Fact 1. ';
+                            }
+                            else if(random === 2){
+                                speakOutput += 'Fact 2. ';
+                            }
+                            else{
+                                speakOutput += 'Fact 3. ';
+                            }
                         }
                     }
                     else{
