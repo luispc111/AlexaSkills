@@ -20,6 +20,11 @@ const LaunchRequestHandler = {
         sessionAttributes.resultIntelectual = 0;
         sessionAttributes.resultEspiritual  = 0;
 
+        sessionAttributes.bigResult = 0;
+        sessionAttributes.bigDimension = 0;
+        sessionAttributes.smallResult = 0;
+        sessionAttributes.smallDimension = 0;
+
         sessionAttributes.turn = 0;
         /*
             turn 0 = intro + first question
@@ -100,6 +105,13 @@ const FisicaIntentHandler = {
                     speakOutput = 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Mis amigos y familiares me animan a tener una vida activa"';
                     
                     if(sessionAttributes.testCompleto === 1){
+                        
+                        // sessionAttributes.bigResult = sessionAttributes.resultFisico;
+                        // sessionAttributes.smallResult = sessionAttributes.resultFisico;
+                        // sessionAttributes.bigDimension = 1;
+                        // sessionAttributes.smallDimension = 1;
+
+
                         sessionAttributes.queTest = 2;
                         sessionAttributes.turn = 0;
                         sessionAttributes.counter++;
@@ -170,7 +182,12 @@ const FisicaIntentHandler = {
                     }
                     else{
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
-                        sessionAttributes.resultNutricion += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+                        sessionAttributes.resultFisico += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+
+                        sessionAttributes.bigResult = sessionAttributes.resultFisico;
+                        sessionAttributes.smallResult = sessionAttributes.resultFisico;
+                        sessionAttributes.bigDimension = 1;
+                        sessionAttributes.smallDimension = 1;
                     }
                     speakOutput += 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Como frutas y verduras todos los días"';
                     sessionAttributes.turn++;
@@ -191,6 +208,7 @@ const FisicaIntentHandler = {
                     speakOutput = 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Soy consciente y mantengo mi peso controlado"';
                     
                     if(sessionAttributes.testCompleto === 1){
+                        
                         sessionAttributes.queTest = 3;
                         sessionAttributes.turn = 0;
                         sessionAttributes.counter++;
@@ -262,7 +280,16 @@ const FisicaIntentHandler = {
                     }
                     else{
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
-                        sessionAttributes.resultCuidado += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+                        sessionAttributes.resultNutricion += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+
+                        if(sessionAttributes.resultNutricion > sessionAttributes.bigResult){
+                            sessionAttributes.bigResult = sessionAttributes.resultNutricion;
+                            sessionAttributes.bigDimension = 2;
+                        }
+                        else if(sessionAttributes.resultNutricion < sessionAttributes.smallResult){
+                            sessionAttributes.smallResult = sessionAttributes.resultNutricion;
+                            sessionAttributes.smallResult = 2;
+                        }
                     }
                     speakOutput += 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Evito el uso del tabaco en general"';
                     sessionAttributes.turn++;
@@ -354,7 +381,16 @@ const FisicaIntentHandler = {
                     }
                     else{
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
-                        sessionAttributes.resultEmocional += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+                        sessionAttributes.resultCuidado += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+
+                        if(sessionAttributes.resultCuidado > sessionAttributes.bigResult){
+                            sessionAttributes.bigResult = sessionAttributes.resultCuidado;
+                            sessionAttributes.bigDimension = 3;
+                        }
+                        else if(sessionAttributes.resultCuidado < sessionAttributes.smallResult){
+                            sessionAttributes.smallResult = sessionAttributes.resultCuidado;
+                            sessionAttributes.smallResult = 3;
+                        }
                     }
                     speakOutput += 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Expreso mis sentimientos y enojos en maneras que no afectan a los demás"';
                     sessionAttributes.turn++;
@@ -446,7 +482,16 @@ const FisicaIntentHandler = {
                     }
                     else{
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
-                        sessionAttributes.resultIntelectual += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+                        sessionAttributes.resultEmocional += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+
+                        if(sessionAttributes.resultEmocional > sessionAttributes.bigResult){
+                            sessionAttributes.bigResult = sessionAttributes.resultEmocional;
+                            sessionAttributes.bigDimension = 4;
+                        }
+                        else if(sessionAttributes.resultEmocional < sessionAttributes.smallResult){
+                            sessionAttributes.smallResult = sessionAttributes.resultEmocional;
+                            sessionAttributes.smallResult = 4;
+                        }
                     }
                     speakOutput += 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Me mantengo informado de Política, Sociedad y temas actuales"';
                     sessionAttributes.turn++;
@@ -537,7 +582,16 @@ const FisicaIntentHandler = {
                     }
                     else{
                         a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
-                        sessionAttributes.resultEspiritual += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+                        sessionAttributes.resultIntelectual += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
+
+                        if(sessionAttributes.resultIntelectual > sessionAttributes.bigResult){
+                            sessionAttributes.bigResult = sessionAttributes.resultIntelectual;
+                            sessionAttributes.bigDimension = 5;
+                        }
+                        else if(sessionAttributes.resultIntelectual < sessionAttributes.smallResult){
+                            sessionAttributes.smallResult = sessionAttributes.resultIntelectual;
+                            sessionAttributes.smallResult = 5;
+                        }
                     }
                     speakOutput += 'Pregunta numero ' + sessionAttributes.counter + '. <break time="50ms"/> "Siento que mi vida tiene un propósito positivo"';
                     sessionAttributes.turn++;
@@ -568,7 +622,7 @@ const FisicaIntentHandler = {
                 case 3:
                     a = Alexa.getSlot(handlerInput.requestEnvelope, "numberInput");
                     sessionAttributes.resultEspiritual += Number(a.resolutions.resolutionsPerAuthority[0].values[0].value.name);
-                    if(sessionAttributes.testCompleto !== 1){
+                    if(sessionAttributes.testCompleto !== 1){                        
                         speakOutput = 'Obtuviste ' + sessionAttributes.resultEspiritual + ' de 15 puntos. ';
                         let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultEspiritual <= 7){
@@ -609,14 +663,69 @@ const FisicaIntentHandler = {
                         }
                     }
                     else{
+
+                        if(sessionAttributes.resultEspiritual > sessionAttributes.bigResult){
+                            sessionAttributes.bigResult = sessionAttributes.resultEspiritual;
+                            sessionAttributes.bigDimension = 6;
+                        }
+                        else if(sessionAttributes.resultEspiritual < sessionAttributes.smallResult){
+                            sessionAttributes.smallResult = sessionAttributes.resultEspiritual;
+                            sessionAttributes.smallResult = 6;
+                        }
+
                         sessionAttributes.resultTotal = sessionAttributes.resultNutricion + sessionAttributes.resultFisico + sessionAttributes.resultCuidado + sessionAttributes.resultEmocional + sessionAttributes.resultEspiritual + sessionAttributes.resultIntelectual;
                         speakOutput += 'Obtuviste un total de ' + sessionAttributes.resultTotal + ' puntos de 90. ';
-                        speakOutput += 'De los cuales ' + sessionAttributes.resultFisico + ' puntos fueron del test físico, ';
-                        speakOutput += sessionAttributes.resultNutricion + ' puntos fueron del test de nutrición, ';
-                        speakOutput += sessionAttributes.resultCuidado + ' puntos fueron del test de cuidado personal, ';
-                        speakOutput += sessionAttributes.resultEmocional + ' puntos fueron del test de cuidado emocional, ';
-                        speakOutput += sessionAttributes.resultIntelectual + ' puntos fueron del test intelectual y ';
-                        speakOutput += sessionAttributes.resultEspiritual + ' puntos fueron del test espiritual. ';
+
+                        // speakOutput += 'De los cuales ' + sessionAttributes.resultFisico + ' puntos fueron del test físico, ';
+                        // speakOutput += sessionAttributes.resultNutricion + ' puntos fueron del test de nutrición, ';
+                        // speakOutput += sessionAttributes.resultCuidado + ' puntos fueron del test de cuidado personal, ';
+                        // speakOutput += sessionAttributes.resultEmocional + ' puntos fueron del test de cuidado emocional, ';
+                        // speakOutput += sessionAttributes.resultIntelectual + ' puntos fueron del test intelectual y ';
+                        // speakOutput += sessionAttributes.resultEspiritual + ' puntos fueron del test espiritual. ';
+                        speakOutput += 'La dimensión más fuerte fue ';
+                        switch(sessionAttributes.bigDimension){
+                            case 1:
+                                speakOutput += 'la física ';
+                                break;
+                            case 2:
+                                speakOutput += 'la nutricional ';
+                                break;
+                            case 3:
+                                speakOutput += 'la del cuidado personal ';
+                                break;
+                            case 4:
+                                speakOutput += 'la emocional ';
+                                break;
+                            case 5:
+                                speakOutput += 'la intelectual ';
+                                break;
+                            case 6:
+                                speakOutput += 'la espiritual ';
+                                break;
+                        }
+                        speakOutput += 'con ' + sessionAttributes.bigResult + ' de 15 puntos. ';
+                        speakOutput += 'La dimensión más debil fue ';
+                        switch(sessionAttributes.smallDimension){
+                            case 1:
+                                speakOutput += 'la física ';
+                                break;
+                            case 2:
+                                speakOutput += 'la nutricional ';
+                                break;
+                            case 3:
+                                speakOutput += 'la del cuidado personal ';
+                                break;
+                            case 4:
+                                speakOutput += 'la emocional ';
+                                break;
+                            case 5:
+                                speakOutput += 'la intelectual ';
+                                break;
+                            case 6:
+                                speakOutput += 'la espiritual ';
+                                break;
+                        }
+                        speakOutput += 'con ' + sessionAttributes.smallResult + ' de 15 puntos. ';
                     }
 
                     // restart scores
@@ -627,7 +736,12 @@ const FisicaIntentHandler = {
                     sessionAttributes.resultIntelectual = 0;
                     sessionAttributes.resultEspiritual = 0;
                     sessionAttributes.resultTotal = 0;
-                    
+
+                    sessionAttributes.bigResult = 0;
+                    sessionAttributes.bigDimension = 0;
+                    sessionAttributes.smallResult = 0;
+                    sessionAttributes.smallDimension = 0;
+
                     sessionAttributes.turn = 0;
                     sessionAttributes.testCompleto = 0;
                     sessionAttributes.counter = 1;
