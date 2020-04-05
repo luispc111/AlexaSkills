@@ -13,7 +13,14 @@
                 },
                 {
                     "name": "AMAZON.StopIntent",
-                    "samples": []
+                    "samples": [
+                        "callate",
+                        "stop",
+                        "gracias",
+                        "detente",
+                        "para",
+                        "salir"
+                    ]
                 },
                 {
                     "name": "AMAZON.NavigateHomeIntent",
@@ -37,6 +44,36 @@
                         "evaluación de {testInput}",
                         "Evalucación {testInput}",
                         "{testInput}"
+                    ]
+                },
+                {
+                    "name": "Edad",
+                    "slots": [
+                        {
+                            "name": "edadInput",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "mi edad es de {edadInput}",
+                        "tengo {edadInput} años",
+                        "edad {edadInput}",
+                        "tengo {edadInput}",
+                        "mi edad es {edadInput}"
+                    ]
+                },
+                {
+                    "name": "Sexo",
+                    "slots": [
+                        {
+                            "name": "sexoInput",
+                            "type": "Sexo"
+                        }
+                    ],
+                    "samples": [
+                        "yo soy {sexoInput}",
+                        "me considero {sexoInput}",
+                        "soy {sexoInput}"
                     ]
                 }
             ],
@@ -119,6 +156,41 @@
                                 "value": "físico",
                                 "synonyms": [
                                     "física"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Sexo",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "Otro",
+                                "synonyms": [
+                                    "Ninguno",
+                                    "Prefiero no decir"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Mujer",
+                                "synonyms": [
+                                    "Femenina",
+                                    "Femenino",
+                                    "Niña",
+                                    "Hembra"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Hombre",
+                                "synonyms": [
+                                    "Masculino",
+                                    "Niño",
+                                    "Macho"
                                 ]
                             }
                         }

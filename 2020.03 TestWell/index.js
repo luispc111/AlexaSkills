@@ -46,16 +46,60 @@ const LaunchRequestHandler = {
             nope = 0
             testCompleto = 1
         */
-        
+        sessionAttributes.edad = 0;
+        sessionAttributes.sexo;
+
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
         
         let speakOutput = 'Bienvenido, TestWell te ayudara a conocer tus fortalezas y debilidades en diferentes dimensiones de Salud y Bienestar. ';
-        speakOutput += 'Para comenzar, necesito que me digas que test quieres tomar, existe el test físico, test de nutrición y otros... .';
+        speakOutput += 'Para comenzar,¿Cuantos años tienes?';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(speakOutput)
             .getResponse();
     }
+};
+
+const EdadIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'Edad';
+    },
+    handle(handlerInput) {
+        
+        let a = '';
+        a = Alexa.getSlot(handlerInput.requestEnvelope, "edadInput");
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.edad = a;
+        let speakOutput = '¡Excelente! Ahora necesito que me indiques tu genero.';
+
+    return handlerInput.responseBuilder
+        .speak(speakOutput)
+        .reprompt(speakOutput)
+        .getResponse();
+    }
+        
+};
+
+const SexoIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'Sexo';
+    },
+    handle(handlerInput) {
+        
+        let a = '';
+        a = Alexa.getSlot(handlerInput.requestEnvelope, "sexoInput");
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.sexo = a;
+        let speakOutput = 'Ahora estamos listos para empezar. Puedes realizar las siguientes evaluaciones <break time="50ms"/> Fisica, Nutrición, Cuidado personal, Emocional, intelectual, espiritual <break time="150ms"/>  o bien realizar una evaluación completa, ¿Que te gustaría hacer?'
+
+    return handlerInput.responseBuilder
+        .speak(speakOutput)
+        .reprompt(speakOutput)
+        .getResponse();
+    }
+        
 };
 
 const FisicaIntentHandler = {
@@ -160,10 +204,10 @@ const FisicaIntentHandler = {
                                 speakOutput += 'La actividad física que hagas el día de hoy puede impactar altamente tu calidad de vida en la vejez. ';
                             }
                             else{
-                                speakOutput += 'Tu estado físico es uno de los 6 pilares del bienestar, sigue cuidandolo. '
+                                speakOutput += 'Tu estado físico es uno de los 5 pilares del bienestar, sigue cuidandolo. '
                             }
                         }
-                        speakOutput += 'Para realizar otro test, solo pidelo. ';
+                        speakOutput += '<break time="350ms"/> Para realizar otro test, solo pidelo. ';
                         sessionAttributes.turn = 0;
                         sessionAttributes.resultFisico = 0; 
                     }
@@ -227,41 +271,42 @@ const FisicaIntentHandler = {
                         speakOutput = 'Obtuviste ' + sessionAttributes.resultNutricion + ' de 15 puntos. ';
                         let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultNutricion <= 7){
-                            speakOutput += 'Te fue mal. ';
+                            speakOutput += 'Aquí hay algo que se puede mejorar. ';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Una dieta saludable ayuda a protegernos de la malnutrición en todas sus formas, así como de las enfermedades no transmisibles, entre ellas la diabetes, las cardiopatías, los accidentes cerebrovasculares y el cáncer.';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Recuerda que la ingesta calórica debe estar equilibrada con la cantidad de actividad física que realices';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'Nunca es tarde para comenzar habitos alimenticios sanos, puedes iniciar evitando la comida chatarra';
                             }
                         }
                         else if(sessionAttributes.resultNutricion <= 11){
-                            speakOutput += 'dos tres. ';
+                            speakOutput += '¡Nada mal! Pero aún puedes mejorar la forma en que nutres tu cuerpo.';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Una buena dieta permite mantener la mente despierta';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Una buena dieta mejora la capacidad de respuesta de tu sistema inmune ';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += '¿Sabias que una buena dieta te puede ayudar a mejorar tu estado de animo?';
                             }
                         }
                         else if(sessionAttributes.resultNutricion <= 15){
-                            speakOutput += 'good. ';
+                            speakOutput += '¡Bien! eres una persona consciente de sus decisiones alimenticias, sigue asi! ';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Una buena alimentación es eficaz para controlar la tensión arterial, esto evita muchos problemas en el futuro ';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Es posible reducir drasticamente el estrés con una buena alimentación ';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'Una buena alimentación permite Mejora el rendimiento del cerebro ';
                             }
                         }
+                         speakOutput += '<break time="350ms"/> Para realizar otro test, solo pidelo';
                         sessionAttributes.turn = 0;
                         sessionAttributes.resultNutricion = 0;
                     }
@@ -328,41 +373,42 @@ const FisicaIntentHandler = {
                         speakOutput = 'Obtuviste ' + sessionAttributes.resultCuidado + ' de 15 puntos. ';
                         let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultCuidado <= 7){
-                            speakOutput += 'Te fue mal. ';
+                            speakOutput += 'Parece que eres una persona que no se toma muy enserio el cuidado personal. ' ;
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += '¿sabias que el humo del tabaco contiene más de 7000 químicos de los cuales se sabe que al menos 70 causan cáncer?. ';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Si no mantienes una buena higiene dental es posible desarollar Gingivitis en el lapso de una semana. ';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += '¿Sabias que el contacto directo de la piel con el sol es una causa muy frecuente de cáncer?.';
                             }
                         }
                         else if(sessionAttributes.resultCuidado <= 11){
-                            speakOutput += 'dos tres. ';
+                            speakOutput += '¡Nada mal! Pero aún puedes mejorar la forma en que cuidas tu cuerpo';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Es recomendable el uso de protector solar para evitar el envejecimiento temprano de la piel.';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Es recomendable el uso de protector solar para evitar el envejecimiento temprano de la piel. ';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'Es recomendable el uso de protector solar para evitar el envejecimiento temprano de la piel.';
                             }
                         }
                         else if(sessionAttributes.resultCuidado <= 15){
-                            speakOutput += 'good. ';
+                            speakOutput += '¡Bien! eres una persona que cuida bien su imagen personal, sigue asi!';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Una buena dentadura, con una buena mordida, una buena masticación, hace que el procesamiento de los alimentos se dé correctamente ';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Una buena dentadura, con una buena mordida, una buena masticación, hace que el procesamiento de los alimentos se dé correctamente ';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'Una buena dentadura, con una buena mordida, una buena masticación, hace que el procesamiento de los alimentos se dé correctamente ';
                             }
                         }
+                        speakOutput += '<break time="350ms"/> Para realizar otro test, solo pidelo. ';
                         sessionAttributes.turn = 0;
                         sessionAttributes.resultCuidado = 0;
                     }
@@ -429,41 +475,42 @@ const FisicaIntentHandler = {
                         speakOutput = 'Obtuviste ' + sessionAttributes.resultEmocional + ' de 15 puntos. ';
                         let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultEmocional <= 7){
-                            speakOutput += 'Te fue mal. ';
+                            speakOutput += 'Parece que eres una persona que no sabe controlar su temperamento';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Recuerda que Cada quien es responsable de lo que le sucede y tiene el poder de decidir lo que quiere ser. Lo que eres hoy día es el resultado de tus actos pasados. Lo que serás mañana es el resultado de tus actos de hoy ';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Recuerda que Cada quien es responsable de lo que le sucede y tiene el poder de decidir lo que quiere ser. Lo que eres hoy día es el resultado de tus actos pasados. Lo que serás mañana es el resultado de tus actos de hoy  ';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'Recuerda que Cada quien es responsable de lo que le sucede y tiene el poder de decidir lo que quiere ser. Lo que eres hoy día es el resultado de tus actos pasados. Lo que serás mañana es el resultado de tus actos de hoy  ';
                             }
                         }
                         else if(sessionAttributes.resultEmocional <= 11){
-                            speakOutput += 'dos tres. ';
+                            speakOutput += '¡Nada mal! Pero aún puedes mejorar la forma en la que manejas tus emociones';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Recuerda que Cada quien es responsable de lo que le sucede y tiene el poder de decidir lo que quiere ser. Lo que eres hoy día es el resultado de tus actos pasados. Lo que serás mañana es el resultado de tus actos de hoy  ';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Recuerda que Cada quien es responsable de lo que le sucede y tiene el poder de decidir lo que quiere ser. Lo que eres hoy día es el resultado de tus actos pasados. Lo que serás mañana es el resultado de tus actos de hoy  ';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'Recuerda que Cada quien es responsable de lo que le sucede y tiene el poder de decidir lo que quiere ser. Lo que eres hoy día es el resultado de tus actos pasados. Lo que serás mañana es el resultado de tus actos de hoy  ';
                             }
                         }
                         else if(sessionAttributes.resultEmocional <= 15){
-                            speakOutput += 'good. ';
+                            speakOutput += '¡Bien! eres una persona que sabe manejar sus emociones correctamente, sigue asi!';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Recuerda que Cada quien es responsable de lo que le sucede y tiene el poder de decidir lo que quiere ser. Lo que eres hoy día es el resultado de tus actos pasados. Lo que serás mañana es el resultado de tus actos de hoy  ';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Recuerda que Cada quien es responsable de lo que le sucede y tiene el poder de decidir lo que quiere ser. Lo que eres hoy día es el resultado de tus actos pasados. Lo que serás mañana es el resultado de tus actos de hoy  ';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'Recuerda que Cada quien es responsable de lo que le sucede y tiene el poder de decidir lo que quiere ser. Lo que eres hoy día es el resultado de tus actos pasados. Lo que serás mañana es el resultado de tus actos de hoy  ';
                             }
                         }
+                        speakOutput += '<break time="350ms"/> Para realizar otro test, solo pidelo. ';
                         sessionAttributes.turn = 0;
                         sessionAttributes.resultEmocional = 0;
                     }
@@ -530,41 +577,42 @@ const FisicaIntentHandler = {
                         speakOutput = 'Obtuviste ' + sessionAttributes.resultIntelectual + ' de 15 puntos. ';
                         let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultIntelectual <= 7){
-                            speakOutput += 'Te fue mal. ';
+                            speakOutput += 'Parece que eres una persona que no aprovecha el intelecto ';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Parte de la dimension intelectual es el desarrollar tus propias ideas, puntos de vista y opiniones.';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Parte de la dimension intelectual es el desarrollar tus propias ideas, puntos de vista y opiniones.';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'Parte de la dimension intelectual es el desarrollar tus propias ideas, puntos de vista y opiniones.';
                             }
                         }
                         else if(sessionAttributes.resultIntelectual <= 11){
-                            speakOutput += 'dos tres. ';
+                            speakOutput += '¡Nada mal! Pero aún puedes mejorar la forma en la que manejas tu intelecto';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Parte de la dimension intelectual es el desarrollar tus propias ideas, puntos de vista y opiniones.';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Parte de la dimension intelectual es el desarrollar tus propias ideas, puntos de vista y opiniones.';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'Parte de la dimension intelectual es el desarrollar tus propias ideas, puntos de vista y opiniones.';
                             }
                         }
                         else if(sessionAttributes.resultIntelectual <= 15){
-                            speakOutput += 'good. ';
+                            speakOutput += '¡Bien! eres una persona que sabe manejar el conocimiento y el intelecto, sigue asi!';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'Estas en el buen camino de convertirte en un pensador crítico';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'Estas en el buen camino de convertirte en un pensador crítico';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'Estas en el buen camino de convertirte en un pensador crítico';
                             }
                         }
+                        speakOutput += '<break time="350ms"/> Para realizar otro test, solo pidelo. ';
                         sessionAttributes.turn = 0;
                         sessionAttributes.resultIntelectual = 0;
                     }
@@ -626,42 +674,44 @@ const FisicaIntentHandler = {
                         speakOutput = 'Obtuviste ' + sessionAttributes.resultEspiritual + ' de 15 puntos. ';
                         let random = Math.floor(Math.random()*(3-1+1)+1);
                         if(sessionAttributes.resultEspiritual <= 7){
-                            speakOutput += 'Te fue mal. ';
+                            speakOutput += 'Parece que no esta muy segura de a donde se dirige';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'El propósito de una vida es necesario para sentir que podemos dejar algo y aportar con nuestra forma de ser a mejorar la vida';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'El propósito de una vida es necesario para sentir que podemos dejar algo y aportar con nuestra forma de ser a mejorar la vida';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'El propósito de una vida es necesario para sentir que podemos dejar algo y aportar con nuestra forma de ser a mejorar la vida ';
                             }
                         }
                         else if(sessionAttributes.resultEspiritual <= 11){
-                            speakOutput += 'dos tres. ';
+                            speakOutput += '¡Nada mal! Pero aún puedes definir mejor el quién eres';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'El propósito de una vida es necesario para sentir que podemos dejar algo y aportar con nuestra forma de ser a mejorar la vida';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'El propósito de una vida es necesario para sentir que podemos dejar algo y aportar con nuestra forma de ser a mejorar la vida ';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'El propósito de una vida es necesario para sentir que podemos dejar algo y aportar con nuestra forma de ser a mejorar la vida';
                             }
                         }
                         else if(sessionAttributes.resultEspiritual <= 15){
-                            speakOutput += 'good. ';
+                            speakOutput += '¡Bien! eres una persona que sabe y conoce su propósito de vida, sigue asi!';
                             if(random === 1){
-                                speakOutput += 'Fact 1. ';
+                                speakOutput += 'El propósito de una vida es necesario para sentir que podemos dejar algo y aportar con nuestra forma de ser a mejorar la vida ';
                             }
                             else if(random === 2){
-                                speakOutput += 'Fact 2. ';
+                                speakOutput += 'El propósito de una vida es necesario para sentir que podemos dejar algo y aportar con nuestra forma de ser a mejorar la vida';
                             }
                             else{
-                                speakOutput += 'Fact 3. ';
+                                speakOutput += 'El propósito de una vida es necesario para sentir que podemos dejar algo y aportar con nuestra forma de ser a mejorar la vida';
                             }
                         }
+                        speakOutput += '<break time="350ms"/> Para realizar otro test, solo pidelo. ';
                     }
+                    
                     else{
 
                         if(sessionAttributes.resultEspiritual > sessionAttributes.bigResult){
@@ -777,7 +827,7 @@ const CancelAndStopIntentHandler = {
                 || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
     },
     handle(handlerInput) {
-        const speakOutput = 'Goodbye!';
+        const speakOutput = 'Recuerda que el bienestar es un proceso continuo, no lo olvides!';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .getResponse();
@@ -821,7 +871,7 @@ const ErrorHandler = {
     },
     handle(handlerInput, error) {
         console.log(`~~~~ Error handled: ${error.stack}`);
-        const speakOutput = `Sorry, I had trouble doing what you asked. Please try again.`;
+        const speakOutput = `Lo siento, no pude entenderte, prueba intentando de nuevo`;
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -836,7 +886,9 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
-        FisicaIntentHandler,
+        EdadIntentHandler,
+        SexoIntentHandler,
+        FisicaIntentHandler, 
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
